@@ -1,6 +1,7 @@
 import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import router from './router';
+import 'antd/dist/reset.css';
 // import logo from './logo.svg';
 // import List from './pages/List';
 // import './App.css';
