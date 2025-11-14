@@ -11,6 +11,10 @@ import Trash from '../pages/manage/Trash';
 import ManageLayout from '../layout/ManageLayout';
 import QuestionLayout from '../layout/QuestionLayout';
 import Edit from '../pages/question/Edit/Index';
+export const HOME_PATHNAME = '/';
+export const LOGIN_PATHNAME = 'login';
+export const REGISTER_PATHNAME = 'register';
+export const MANGE_LIST_PATHNAME = 'manage/list';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -21,11 +25,11 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'login',
+        path: LOGIN_PATHNAME,
         element: <Login />,
       },
       {
-        path: 'register',
+        path: REGISTER_PATHNAME,
         element: <Register />,
       },
       {
