@@ -1,12 +1,15 @@
 import React, { FC } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { Button, Typography } from 'antd';
+import { MANGE_LIST_PATHNAME } from '../router';
+import styles from './Home.module.scss';
+
 const Home: FC = () => {
   const nav = useNavigate();
-
+  const { Title, Paragraph } = Typography;
   return (
-    <div>
-      <p>首页</p>
+    <div className={styles.container}>
+      {/* <p>首页</p>
       <div>
         <Button
           onClick={() => {
@@ -16,6 +19,13 @@ const Home: FC = () => {
           到login
         </Button>
         <Link to="/register">注册</Link>
+      </div> */}
+      <Title>问卷调查|在线投票</Title>
+      <Paragraph>已累计创建问卷 555 份，发布问卷 444 份，收到答卷 999 份</Paragraph>
+      <div className={styles.info}>
+        <Button type="primary" onClick={() => nav(MANGE_LIST_PATHNAME)}>
+          开始使用
+        </Button>
       </div>
     </div>
   );
