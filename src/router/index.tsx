@@ -66,7 +66,7 @@ const router = createBrowserRouter([
         element: <Edit />,
       },
       {
-        path: 'star/:id',
+        path: 'stat/:id',
         element: <Star />,
       },
     ],

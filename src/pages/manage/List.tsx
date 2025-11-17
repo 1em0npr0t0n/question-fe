@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import styles from './List.module.scss';
+import styles from './Manage.module.scss';
 import QuestionCard from '../../components/QuestionCard';
 const rawQuestionList = [
   {
@@ -14,7 +14,7 @@ const rawQuestionList = [
     _id: '2',
     title: '问卷2',
     isPublished: false,
-    isStar: false,
+    isStar: true,
     answerCount: 3,
     createAt: '2015年08月03日',
   },
@@ -46,12 +46,14 @@ const List: FC = () => {
         <div className={styles.right}>(搜索框)</div>
       </header>
       <nav className={styles.content}>
-        {questionList.map(q => {
-          const { _id } = q;
-          return <QuestionCard key={_id} {...q}></QuestionCard>;
-        })}
+        {/* {问卷列表} */}
+        {questionList.length > 0 &&
+          questionList.map(q => {
+            const { _id } = q;
+            return <QuestionCard key={_id} {...q} />;
+          })}
       </nav>
-      <footer className={styles.footer}>页脚</footer>
+      <footer className={styles.footer}>loadMore 加载更多</footer>
     </>
   );
 };

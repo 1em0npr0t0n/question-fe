@@ -1,5 +1,16 @@
 import React, { FC } from 'react';
 import styles from './QuestionCard.module.scss';
+import { Button, Space, Divider, Tag, Popconfirm, Modal, message } from 'antd';
+import {
+  CopyOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
+  LineChartOutlined,
+  StarOutlined,
+} from '@ant-design/icons';
+import { useNavigate, Link } from 'react-router-dom';
+import '@ant-design/v5-patch-for-react-19';
 type PropsType = {
   _id: string;
   title: string;
@@ -8,33 +19,86 @@ type PropsType = {
   answerCount: number;
   createAt: string;
 };
+
+const { confirm } = Modal;
 const QuestionCard: FC<PropsType> = (Props: PropsType) => {
   const { _id, title, isPublished, isStar, answerCount, createAt } = Props;
+  const nav = useNavigate();
+  function copy() {
+    message.success('执行复制');
+  }
+  const delInfo = () => {
+    confirm({
+      title: '确定删除该问卷吗？',
+      content: '删除了就再也找不到了',
+      icon: <ExclamationCircleOutlined />,
+      onOk() {
+        message.success('执行删除');
+      },
+    });
+    //alert('删除')
+  };
   return (
     <>
       <div className={styles.container}>
         <div className={styles.title}>
           <div className={styles.left}>
-            <a href="/#">
+            <Link to={isPublished ? `/question/stat/${_id}` : `/question/edit/${_id}`}>
+              {isPublished ? <StarOutlined style={{ color: 'yellow' }} /> : ''}
               {title}
-              {_id}
-            </a>
+            </Link>
           </div>
           <div className={styles.right}>
-            {isPublished ? <span style={{ color: 'green' }}>已发布</span> : <span>未发布</span>}
-            <span>答卷:{answerCount}</span>
-            <span>{createAt}</span>
+            <Space>
+              {isPublished ? <Tag color="processing">已发布</Tag> : <Tag>未发布</Tag>}
+              <span>答卷:{answerCount}</span>
+              <span>{createAt}</span>
+            </Space>
           </div>
         </div>
+        <Divider style={{ margin: '12px' }}></Divider>
         <div className={styles['button-c']}>
           <div className={styles['left']}>
-            <button>编辑问卷</button>
-            <button>数据统计</button>
+            <Space>
+              <Button
+                icon={<EditOutlined />}
+                type="text"
+                size="small"
+                onClick={() => nav(`/question/edit/${_id}`)}
+              >
+                编辑问卷
+              </Button>
+              <Button
+                icon={<LineChartOutlined />}
+                type="text"
+                size="small"
+                onClick={() => nav(`/question/stat/${_id}`)}
+                disabled={isPublished}
+              >
+                数据统计
+              </Button>
+            </Space>
           </div>
           <div className={styles['right']}>
-            <button>标星{isStar}</button>
-            <button>复制</button>
-            <button>删除</button>
+            <Space>
+              <Button type="text" size="small" icon={<StarOutlined />}>
+                {isStar ? '取消星标' : '星标'}
+              </Button>
+              <Popconfirm
+                title="是否复制当前问卷？"
+                okText="确定"
+                cancelText="取消"
+                onConfirm={copy}
+              >
+                <Button type="text" size="small" icon={<CopyOutlined />}>
+                  复制
+                </Button>
+              </Popconfirm>
+
+              <Button type="text" size="small" icon={<DeleteOutlined />} onClick={delInfo}>
+                删除
+              </Button>
+            </Space>
           </div>
         </div>
       </div>
