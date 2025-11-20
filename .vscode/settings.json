@@ -5,12 +5,7 @@
     "source.fixAll": "explicit" // 使用字符串值
   },
   "eslint.codeActionsOnSave.mode": "all", // 替代旧的布尔值配置
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -23,5 +18,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "prettier.enable": true
+  "prettier.enable": true,
+  "cSpell.words": ["Popconfirm"]
 }
