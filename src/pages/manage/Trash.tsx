@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { Typography, Empty, Table, Tag, Button, Space, Modal } from 'antd';
 import styles from './Manage.module.scss';
 import '@ant-design/v5-patch-for-react-19';
+import ListSearch from '../../components/ListSearch';
 import { DeleteOutlined } from '@ant-design/icons';
 const rawQuestionList = [
   {
@@ -102,7 +103,10 @@ const Trash: FC = () => {
         <div className={styles.left}>
           <Title level={3}>回收站</Title>
         </div>
-        <div className={styles.right}>(搜索框)</div>
+        <div className={styles.right}>
+          {/* 搜索框 */}
+          <ListSearch />
+        </div>
       </header>
       <nav className={styles.content}>
         {/* {问卷列表} */}

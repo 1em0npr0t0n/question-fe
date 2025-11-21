@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import styles from './Manage.module.scss';
 import QuestionCard from '../../components/QuestionCard';
+import ListSearch from '../../components/ListSearch';
 import { Typography, Empty } from 'antd';
 const rawQuestionList = [
   {
@@ -37,7 +38,10 @@ const Star: FC = () => {
         <div className={styles.left}>
           <Title level={3}>星标问卷</Title>
         </div>
-        <div className={styles.right}>(搜索框)</div>
+        <div className={styles.right}>
+          {/* 搜索框 */}
+          <ListSearch />
+        </div>
       </header>
       <nav className={styles.content}>
         {/* {问卷列表} */}

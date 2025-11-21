@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Input, Space, Button } from 'antd';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
 import type { ChangeEvent } from 'react';
 import { LIST_SEARCH_PARAM_KEY } from '../comstant';
@@ -8,8 +8,12 @@ import { LIST_SEARCH_PARAM_KEY } from '../comstant';
 const ListSearch: FC = () => {
   const nav = useNavigate();
   const { pathname } = useLocation();
-
+  const [searchParams] = useSearchParams();
   const [value, setValue] = useState('');
+  useEffect(() => {
+    const curVal = searchParams.get(LIST_SEARCH_PARAM_KEY) || '';
+    setValue(curVal);
+  }, [searchParams]);
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
   }
