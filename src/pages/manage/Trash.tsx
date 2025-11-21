@@ -57,6 +57,7 @@ const Trash: FC = () => {
       dataIndex: 'createAt',
     },
   ];
+  //删除按钮
   function del() {
     confirm({
       title: '确认删除该问卷？',
