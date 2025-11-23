@@ -10,13 +10,16 @@ const ListSearch: FC = () => {
   const { pathname } = useLocation();
   const [searchParams] = useSearchParams();
   const [value, setValue] = useState('');
+
   useEffect(() => {
     const curVal = searchParams.get(LIST_SEARCH_PARAM_KEY) || '';
     setValue(curVal);
   }, [searchParams]);
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
   }
+
   function handleSearch() {
     nav({
       pathname,
