@@ -3,8 +3,8 @@ import styles from './Manage.module.scss';
 import QuestionCard from '../../components/QuestionCard';
 import ListSearch from '../../components/ListSearch';
 import { Typography, Spin } from 'antd';
-import { getQuestionListService } from '../../services/question';
-import { useRequest, useTitle } from 'ahooks';
+import { useTitle } from 'ahooks';
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData';
 
 // const rawQuestionList = [
 //   {
@@ -45,7 +45,7 @@ const { Title } = Typography;
 const List: FC = () => {
   //const [questionList] = useState(rawQuestionList);
   useTitle('问卷列表');
-  const { data = {}, loading } = useRequest(getQuestionListService);
+  const { data = {}, loading } = useLoadQuestionListData();
   const { list = [], total = 0 } = data;
 
   // const [list, setList] = useState([]);

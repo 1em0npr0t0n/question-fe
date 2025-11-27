@@ -1,40 +1,45 @@
 import React, { FC, useState } from 'react';
-import { Typography, Empty, Table, Tag, Button, Space, Modal } from 'antd';
+import { Typography, Empty, Table, Tag, Button, Space, Modal, Spin } from 'antd';
 import styles from './Manage.module.scss';
 import '@ant-design/v5-patch-for-react-19';
 import ListSearch from '../../components/ListSearch';
 import { DeleteOutlined } from '@ant-design/icons';
-const rawQuestionList = [
-  {
-    _id: '1',
-    title: '问卷1',
-    isPublished: false,
-    isStar: true,
-    answerCount: 5,
-    createAt: '2015年08月04日',
-  },
-  {
-    _id: '2',
-    title: '问卷2',
-    isPublished: false,
-    isStar: false,
-    answerCount: 3,
-    createAt: '2015年08月03日',
-  },
-  {
-    _id: '3',
-    title: '问卷3',
-    isPublished: true,
-    isStar: true,
-    answerCount: 12,
-    createAt: '2005年01月02日',
-  },
-];
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData';
+import { useTitle } from 'ahooks';
+// const rawQuestionList = [
+//   {
+//     _id: '1',
+//     title: '问卷1',
+//     isPublished: false,
+//     isStar: true,
+//     answerCount: 5,
+//     createAt: '2015年08月04日',
+//   },
+//   {
+//     _id: '2',
+//     title: '问卷2',
+//     isPublished: false,
+//     isStar: false,
+//     answerCount: 3,
+//     createAt: '2015年08月03日',
+//   },
+//   {
+//     _id: '3',
+//     title: '问卷3',
+//     isPublished: true,
+//     isStar: true,
+//     answerCount: 12,
+//     createAt: '2005年01月02日',
+//   },
+// ];
 const { Title } = Typography;
 const { confirm } = Modal;
 
 const Trash: FC = () => {
-  const [questionList] = useState(rawQuestionList);
+  useTitle('回收站');
+  //const [questionList] = useState(rawQuestionList);
+  const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true });
+  const { list = [], total = 0 } = data;
   // 记录选中的id集
   const [selectedIds, setSelectedIds] = useState(Array<string>);
   const tableColumns = [
@@ -55,7 +60,7 @@ const Trash: FC = () => {
     },
     {
       title: '创建日期',
-      dataIndex: 'createAt',
+      dataIndex: 'createdAt',
     },
   ];
   //删除按钮
@@ -83,10 +88,10 @@ const Trash: FC = () => {
         </Space>
       </div>
       <Table
-        dataSource={questionList}
+        dataSource={list}
         columns={tableColumns}
         pagination={false}
-        rowKey={q => q._id}
+        rowKey={(q: any) => q._id}
         rowSelection={{
           type: 'checkbox',
           onChange: selectedRowKeys => {
@@ -109,11 +114,16 @@ const Trash: FC = () => {
         </div>
       </header>
       <nav className={styles.content}>
+        {loading && (
+          <div style={{ textAlign: 'center' }}>
+            <Spin />
+          </div>
+        )}
         {/* {问卷列表} */}
-        {questionList.length === 0 && <Empty description="没有数据呀" />}
-        {questionList.length > 0 && TableElement}
+        {!loading && list.length === 0 && <Empty description="没有数据呀" />}
+        {!loading && list.length > 0 && TableElement}
       </nav>
-      <footer className={styles.footer}>分页</footer>
+      <footer className={styles.footer}>{total}分页</footer>
     </>
   );
 };
