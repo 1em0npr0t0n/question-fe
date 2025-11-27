@@ -11,6 +11,7 @@ import Trash from '../pages/manage/Trash';
 import ManageLayout from '../layout/ManageLayout';
 import QuestionLayout from '../layout/QuestionLayout';
 import Edit from '../pages/question/Edit/Index';
+import Stat from '../pages/question/Stat/Index';
 export const HOME_PATHNAME = '/';
 export const LOGIN_PATHNAME = 'login';
 export const REGISTER_PATHNAME = 'register';
@@ -67,7 +68,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'stat/:id',
-        element: <Star />,
+        element: <Stat />,
       },
     ],
   },

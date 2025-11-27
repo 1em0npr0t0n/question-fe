@@ -7,6 +7,11 @@ import styles from './Home.module.scss';
 const Home: FC = () => {
   const nav = useNavigate();
   const { Title, Paragraph } = Typography;
+  // useEffect(() => {
+  //   // fetch('/api/test')
+  //   //   .then(res => res.json())
+  //   //   .then(data => console.log('fetch data', data));
+  // }, []);
   return (
     <div className={styles.container}>
       {/* <p>首页</p>
