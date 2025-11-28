@@ -3,7 +3,7 @@ import { Input, Space, Button } from 'antd';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
 import type { ChangeEvent } from 'react';
-import { LIST_SEARCH_PARAM_KEY } from '../comstant';
+import { LIST_SEARCH_PARAM_KEY } from '../constant';
 // const { Search } = Input;
 const ListSearch: FC = () => {
   const nav = useNavigate();

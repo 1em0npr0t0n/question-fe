@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Pagination } from 'antd';
-import { LIST_PAGE_SIZE_DEFAULT, LIST_PAGE_PARAM_KEY, LIST_PAGE_SIZE_PARAM_KEY } from '../comstant';
+import { LIST_PAGE_SIZE_DEFAULT, LIST_PAGE_PARAM_KEY, LIST_PAGE_SIZE_PARAM_KEY } from '../constant';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 type PropsType = {

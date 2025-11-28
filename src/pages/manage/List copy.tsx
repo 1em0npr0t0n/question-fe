@@ -6,7 +6,7 @@ import { Typography, Spin, Empty } from 'antd';
 import { useDebounceFn, useRequest, useTitle } from 'ahooks';
 import { useSearchParams } from 'react-router-dom';
 import { getQuestionListService } from '../../services/question';
-import { LIST_PAGE_SIZE_DEFAULT, LIST_SEARCH_PARAM_KEY } from '../../comstant';
+import { LIST_PAGE_SIZE_DEFAULT, LIST_SEARCH_PARAM_KEY } from '../../constant';
 
 const { Title } = Typography;
 

@@ -5,7 +5,7 @@ import {
   LIST_PAGE_SIZE_DEFAULT,
   LIST_PAGE_SIZE_PARAM_KEY,
   LIST_SEARCH_PARAM_KEY,
-} from '../comstant';
+} from '../constant';
 import { getQuestionListService } from '../services/question';
 type OptionType = {
   isStar: boolean;
