@@ -3,35 +3,11 @@ import { Typography, Empty, Table, Tag, Button, Space, Modal, Spin } from 'antd'
 import styles from './Manage.module.scss';
 import '@ant-design/v5-patch-for-react-19';
 import ListSearch from '../../components/ListSearch';
+import ListPage from '../../components/ListPage';
 import { DeleteOutlined } from '@ant-design/icons';
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData';
 import { useTitle } from 'ahooks';
-// const rawQuestionList = [
-//   {
-//     _id: '1',
-//     title: '问卷1',
-//     isPublished: false,
-//     isStar: true,
-//     answerCount: 5,
-//     createAt: '2015年08月04日',
-//   },
-//   {
-//     _id: '2',
-//     title: '问卷2',
-//     isPublished: false,
-//     isStar: false,
-//     answerCount: 3,
-//     createAt: '2015年08月03日',
-//   },
-//   {
-//     _id: '3',
-//     title: '问卷3',
-//     isPublished: true,
-//     isStar: true,
-//     answerCount: 12,
-//     createAt: '2005年01月02日',
-//   },
-// ];
+
 const { Title } = Typography;
 const { confirm } = Modal;
 
@@ -123,7 +99,9 @@ const Trash: FC = () => {
         {!loading && list.length === 0 && <Empty description="没有数据呀" />}
         {!loading && list.length > 0 && TableElement}
       </nav>
-      <footer className={styles.footer}>{total}分页</footer>
+      <footer className={styles.footer}>
+        <ListPage total={total} />
+      </footer>
     </>
   );
 };

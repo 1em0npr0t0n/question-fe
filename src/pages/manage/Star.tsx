@@ -4,6 +4,7 @@ import QuestionCard from '../../components/QuestionCard';
 import ListSearch from '../../components/ListSearch';
 import { Typography, Empty, Spin } from 'antd';
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData';
+import ListPage from '../../components/ListPage';
 import { useTitle } from 'ahooks';
 // const rawQuestionList = [
 //   {
@@ -63,7 +64,9 @@ const Star: FC = () => {
             return <QuestionCard key={_id} {...q} />;
           })}
       </nav>
-      <footer className={styles.footer}>{total}分页</footer>
+      <footer className={styles.footer}>
+        <ListPage total={total} />
+      </footer>
     </>
   );
 };
