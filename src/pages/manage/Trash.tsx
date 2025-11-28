@@ -1,12 +1,13 @@
 import React, { FC, useState } from 'react';
-import { Typography, Empty, Table, Tag, Button, Space, Modal, Spin } from 'antd';
+import { Typography, Empty, Table, Tag, Button, Space, Modal, Spin, message } from 'antd';
 import styles from './Manage.module.scss';
 import '@ant-design/v5-patch-for-react-19';
 import ListSearch from '../../components/ListSearch';
 import ListPage from '../../components/ListPage';
 import { DeleteOutlined } from '@ant-design/icons';
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData';
-import { useTitle } from 'ahooks';
+import { useRequest, useTitle } from 'ahooks';
+import { deleteQuestionService, updateQuestionService } from '../../services/question';
 
 const { Title } = Typography;
 const { confirm } = Modal;
@@ -14,10 +15,43 @@ const { confirm } = Modal;
 const Trash: FC = () => {
   useTitle('回收站');
   //const [questionList] = useState(rawQuestionList);
-  const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true });
-  const { list = [], total = 0 } = data;
   // 记录选中的id集
   const [selectedIds, setSelectedIds] = useState(Array<string>);
+  const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true });
+  const { list = [], total = 0 } = data;
+  // 恢复问卷 逐行恢复 带有防抖debounceWait
+  const { loading: recoverLoading, run: recoverRun } = useRequest(
+    async () => {
+      for await (const id of selectedIds) {
+        await updateQuestionService(id, { isDeleted: false });
+      }
+    },
+    {
+      manual: true,
+      debounceWait: 500,
+      onSuccess() {
+        message.success('问卷恢复成功');
+        refresh(); //手动刷新
+        setSelectedIds([]);
+      },
+    },
+  );
+  // 彻底删除 提交id集合 删除成功手动刷新
+  const { loading: deleteLoading, run: delRun } = useRequest(
+    async () => {
+      const data = await deleteQuestionService(selectedIds);
+      return data;
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success('删除完成');
+        refresh();
+        setSelectedIds([]);
+      },
+    },
+  );
+
   const tableColumns = [
     {
       title: '标题',
@@ -46,7 +80,8 @@ const Trash: FC = () => {
       content: '删除后不可找回',
       icon: <DeleteOutlined />,
       onOk: () => {
-        alert(`删除 ${JSON.stringify(selectedIds)}`);
+        delRun();
+        //alert(`删除 ${JSON.stringify(selectedIds)}`);
       },
     });
   }
@@ -55,11 +90,15 @@ const Trash: FC = () => {
     <>
       <div style={{ marginBottom: '16px' }}>
         <Space>
-          <Button type="primary" disabled={selectedIds.length === 0}>
+          <Button
+            type="primary"
+            disabled={recoverLoading || selectedIds.length === 0}
+            onClick={recoverRun}
+          >
             恢复
           </Button>
-          <Button danger disabled={selectedIds.length === 0} onClick={del}>
-            删除
+          <Button danger disabled={deleteLoading || selectedIds.length === 0} onClick={del}>
+            彻底删除
           </Button>
         </Space>
       </div>
@@ -71,7 +110,6 @@ const Trash: FC = () => {
         rowSelection={{
           type: 'checkbox',
           onChange: selectedRowKeys => {
-            console.log('sel', selectedRowKeys);
             setSelectedIds(selectedRowKeys as Array<string>);
           },
         }}

@@ -18,14 +18,14 @@ function useLoadQuestionListData(opt: Partial<OptionType> = {}) {
   const page = parseInt(searchParams.get(LIST_PAGE_PARAM_KEY) || '') || 1;
   const pageSize =
     parseInt(searchParams.get(LIST_PAGE_SIZE_PARAM_KEY) || '') || LIST_PAGE_SIZE_DEFAULT;
-  const { loading, data, error } = useRequest(
+  const { loading, data, error, refresh } = useRequest(
     async () => {
       const data = await getQuestionListService({ keyword, isStar, isDeleted, page, pageSize });
       return data;
     },
     { refreshDeps: [searchParams] },
   );
-  return { loading, data, error };
+  return { loading, data, error, refresh };
 }
 
 export default useLoadQuestionListData;
