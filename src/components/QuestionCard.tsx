@@ -42,6 +42,7 @@ const QuestionCard: FC<PropsType> = (Props: PropsType) => {
   );
   //复制问卷请求
   const { run: duplicate, loading: duplicateLoading } = useRequest(
+    //async () => await duplicateQuestionService(_id); 可以省去return
     async () => {
       const data = await duplicateQuestionService(_id);
       return data;
@@ -54,21 +55,30 @@ const QuestionCard: FC<PropsType> = (Props: PropsType) => {
       },
     },
   );
-  // function copy() {
-  //   message.success('执行复制');
-  // }
+  //假删除问卷
+  const [isDeletedState, setIsDeletedState] = useState(false);
+  const { loading: delLoading, run: delQuestion } = useRequest(
+    async async => await updateQuestionService(_id, { isDeleted: true }),
+    {
+      manual: true,
+      onSuccess() {
+        message.success('删除成功');
+        setIsDeletedState(true);
+      },
+    },
+  );
 
   const delInfo = () => {
     confirm({
       title: '确定删除该问卷吗？',
       content: '删除了就再也找不到了',
       icon: <ExclamationCircleOutlined />,
-      onOk() {
-        message.success('执行删除');
-      },
+      onOk: delQuestion,
     });
     //alert('删除')
   };
+  //每条信息都会判断isDeletedState是否为真，为真不参加渲染
+  if (isDeletedState) return null;
   return (
     <>
       <div className={styles.container}>
@@ -137,7 +147,13 @@ const QuestionCard: FC<PropsType> = (Props: PropsType) => {
                 </Button>
               </Popconfirm>
 
-              <Button type="text" size="small" icon={<DeleteOutlined />} onClick={delInfo}>
+              <Button
+                type="text"
+                size="small"
+                icon={<DeleteOutlined />}
+                onClick={delInfo}
+                disabled={delLoading}
+              >
                 删除
               </Button>
             </Space>
