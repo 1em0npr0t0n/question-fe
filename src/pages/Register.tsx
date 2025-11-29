@@ -1,12 +1,30 @@
 import React, { FC } from 'react';
-import { Space, Typography, Button, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Space, Typography, Button, Form, Input, message } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserAddOutlined } from '@ant-design/icons';
 import styles from './Register.module.scss';
-import { LOGIN_PATHNAME } from '../router';
+import { HOME_PATHNAME, LOGIN_PATHNAME } from '../router';
+import { useRequest } from 'ahooks';
+import { registerUserService } from '../services/user';
 const Register: FC = () => {
+  const nav = useNavigate();
+  const { run: registerRun, loading: registerLoading } = useRequest(
+    async values => {
+      const { username, password, email, phone, nickname } = values;
+      const data = await registerUserService(username, password, email, phone, nickname);
+      return data;
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success('注册成功');
+        nav(HOME_PATHNAME + LOGIN_PATHNAME);
+      },
+    },
+  );
   const onFinish = (values: any) => {
     console.log(values);
+    registerRun(values);
   };
   const { Title } = Typography;
   return (
@@ -30,7 +48,21 @@ const Register: FC = () => {
           >
             <Input />
           </Form.Item>
-          <Form.Item label="Email" name="email" rules={[{ type: 'email', message: '请输入邮箱' }]}>
+          <Form.Item
+            label="昵称"
+            name="nickname"
+            rules={[{ type: 'string', min: 2, max: 20, message: '字符长度在 2-20 之间' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              { required: true, message: '请输入邮箱' },
+              { type: 'email', message: '邮箱地址有错误' },
+            ]}
+          >
             <Input />
           </Form.Item>
           <Form.Item
@@ -68,7 +100,7 @@ const Register: FC = () => {
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
             <Space>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" disabled={registerLoading}>
                 提交
               </Button>
               <Link to={'/' + LOGIN_PATHNAME}> 已有账户,请登录</Link>
