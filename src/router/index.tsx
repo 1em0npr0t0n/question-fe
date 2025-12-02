@@ -16,6 +16,9 @@ export const HOME_PATHNAME = '/';
 export const LOGIN_PATHNAME = 'login';
 export const REGISTER_PATHNAME = 'register';
 export const MANGE_LIST_PATHNAME = 'manage/list';
+const LOGIN_PATHNAME_PATH = HOME_PATHNAME + LOGIN_PATHNAME;
+const REGISTER_PATHNAME_PATH = HOME_PATHNAME + REGISTER_PATHNAME;
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -74,3 +77,24 @@ const router = createBrowserRouter([
   },
 ]);
 export default router;
+/**
+ *
+ * @param pathname url路径
+ * @returns 是否在login or register 页面
+ */
+export function isLoginOrRegister(pathname: string) {
+  // if (pathname.indexOf(LOGIN_PATHNAME) !== -1 || pathname.indexOf(REGISTER_PATHNAME) !== -1) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+  return [LOGIN_PATHNAME_PATH, REGISTER_PATHNAME_PATH].includes(pathname);
+}
+/**
+ *
+ * @param pathname url路径
+ * @returns 是否在不需要登录就可以访问的页面
+ */
+export function isNoNeedUserInfo(pathname: string) {
+  return [HOME_PATHNAME, LOGIN_PATHNAME_PATH, REGISTER_PATHNAME_PATH].includes(pathname);
+}
