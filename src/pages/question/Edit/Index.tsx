@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-
-import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
+import styles from './index.module.scss';
+// import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
+import EditCanvas from './EditCanvas';
 const Edit: FC = () => {
   //   const { id = '' } = useParams();
   // const [loading, setLoading] = useState(true);
@@ -20,12 +21,24 @@ const Edit: FC = () => {
   //   fn();
   // }, [id]);
   //const [searchParams] = useSearchParams();
-  const { loading, data } = useLoadQuestionData();
+
   //console.log('key', searchParams.get('key'));
+
+  // const { loading, data } = useLoadQuestionData();
   return (
-    <div>
-      <p>Edit page</p>
-      {loading ? <p>loading</p> : <p>{JSON.stringify(data)}</p>}
+    <div className={styles.container}>
+      <header style={{ backgroundColor: 'white', height: '40px' }}>header</header>
+      <main className={styles['content-wrapper']}>
+        <div className={styles['content']}>
+          <div className={styles.left}>left</div>
+          <div className={styles.middle}>
+            <div className={styles['canvas-wrapper']}>
+              <EditCanvas />
+            </div>
+          </div>
+          <div className={styles.right}>right</div>
+        </div>
+      </main>
     </div>
   );
 };

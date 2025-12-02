@@ -7,10 +7,15 @@ const QuestionLayout: FC = () => {
   const { waitingUserData } = useLoadUserData();
   useNavPage(waitingUserData);
   return (
-    <>
-      <div>QuestionLayout</div>
-      <div>{waitingUserData ? <Spin /> : <Outlet />}</div>
-    </>
+    <div style={{ height: '100vh' }}>
+      {waitingUserData ? (
+        <div style={{ textAlign: 'center', marginTop: '60px' }}>
+          <Spin />
+        </div>
+      ) : (
+        <Outlet />
+      )}
+    </div>
   );
 };
 export default QuestionLayout;
