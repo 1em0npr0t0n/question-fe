@@ -5,10 +5,10 @@ import Component from './Component';
 import { QuestionTitleDefaultProps } from './Interface';
 
 export * from './Interface';
-
-export default {
+const QuestionTitleConf = {
   title: '标题',
   type: 'questionTitle',
   Component,
   defaultProps: QuestionTitleDefaultProps,
 };
+export default QuestionTitleConf;

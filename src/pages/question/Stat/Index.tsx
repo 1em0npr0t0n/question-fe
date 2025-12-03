@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
+// import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
 const Star: FC = () => {
-  const { loading, data } = useLoadQuestionData();
+  // const { loading, data } = useLoadQuestionData();
   //console.log('key', searchParams.get('key'));
   return (
     <div>
       <p>stat page</p>
-      {loading ? <p>loading</p> : <p>{JSON.stringify(data)}</p>}
+      {/* {loading ? <p>loading</p> : <p>{JSON.stringify(data)}</p>} */}
     </div>
   );
 };
