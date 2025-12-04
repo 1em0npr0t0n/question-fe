@@ -4,10 +4,16 @@ import { Typography } from 'antd';
 import styles from './ComponentLib.module.scss';
 import { addComponent } from '../../../store/componentsReducer';
 import { useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
-function genComponent(c: ComponentConfType, dispatch: any) {
+import { nanoid, Dispatch } from '@reduxjs/toolkit';
+/**
+ *
+ * @param c 组件信息
+ * @param dispatch redux dispatch
+ * @returns 右侧组件库内的组件
+ */
+function genComponent(c: ComponentConfType, dispatch: Dispatch) {
   const { title, type, Component, defaultProps } = c;
-
+  //点击把组件添加到画布
   function handleClick() {
     dispatch(
       addComponent({
@@ -35,6 +41,7 @@ const ComponentLib: FC = () => {
         const { groupId, groupName, components } = group;
         return (
           <>
+            {/* 右侧组件库内渲染组件标题 */}
             <Title
               level={3}
               key={groupId}
@@ -42,6 +49,7 @@ const ComponentLib: FC = () => {
             >
               {groupName}
             </Title>
+            {/* //生成组件库内组件 */}
             {components.map(c => genComponent(c, dispatch))}
           </>
         );
