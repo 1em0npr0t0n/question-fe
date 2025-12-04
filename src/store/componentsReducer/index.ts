@@ -34,7 +34,21 @@ export const componentsSlice = createSlice({
     changeSelectedId: (state: ComponentStateType, action: PayloadAction<string>) => {
       state.selectedId = action.payload;
     },
+    //组件库添加到画布
+    addComponent: (state: ComponentStateType, action: PayloadAction<ComponentInfoType>) => {
+      const newComponent = action.payload;
+      const { selectedId, componentList } = state;
+      const index = componentList.findIndex(c => c.fe_id === selectedId);
+      if (index < 0) {
+        //未选中任何组件
+        state.componentList.push(newComponent);
+      } else {
+        //选中了组件，插入到index后面
+        state.componentList.splice(index + 1, 0, newComponent);
+      }
+      state.selectedId = newComponent.fe_id;
+    },
   },
 });
-export const { resetComponents, changeSelectedId } = componentsSlice.actions;
+export const { resetComponents, changeSelectedId, addComponent } = componentsSlice.actions;
 export default componentsSlice.reducer;

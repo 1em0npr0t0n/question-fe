@@ -17,7 +17,19 @@ export type ComponentConfType = {
   Component: FC<ComponentPropsType>;
   defaultProps: ComponentPropsType;
 };
+//组件列表 getComponentConfByType可在此列表中查询组件
 const componentConfList: ComponentConfType[] = [QuestionInputConf, QuestionTitleConf];
+
+//组件分组
+export const componentConfGroup = [
+  {
+    groupId: 'groupTitle',
+    groupName: '文本显示',
+    components: [QuestionTitleConf],
+  },
+  { groupId: 'groupInput', groupName: '用户输入', components: [QuestionInputConf] },
+];
+
 /**
  *
  * @param type 组件类型标签 :
