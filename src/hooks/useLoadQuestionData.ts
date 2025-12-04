@@ -6,7 +6,7 @@ import { getQuestionService } from '../services/question';
 import { useRequest } from 'ahooks';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { resetCompinents } from '../store/componentsReducer';
+import { resetComponents } from '../store/componentsReducer';
 function useLoadQuestionData() {
   const { id = '' } = useParams();
   const dispatch = useDispatch();
@@ -22,8 +22,14 @@ function useLoadQuestionData() {
     if (!data) return;
     // const { title = '', componentList = [] } = data;
     const { componentList = [] } = data;
+    //初始化当前选中组件ID 默认为空
+    let selectedId = '';
+    if (componentList.length > 0) {
+      //默认自动选择第一个组件
+      selectedId = componentList[0].fe_id;
+    }
     //画布组件列表信息 存储到redux
-    dispatch(resetCompinents({ componentList }));
+    dispatch(resetComponents({ componentList, selectedId: selectedId }));
   }, [data, dispatch]);
   //问卷ID变化，执行ajax 加载问卷
   useEffect(() => {

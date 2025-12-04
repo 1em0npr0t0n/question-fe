@@ -15,3 +15,7 @@
 .component {
   pointer-events: none; //屏蔽鼠标行为，组件不让被点击到
 }
+//画布组件选中
+.selected {
+  border-color: #1890ff !important ;
+}
