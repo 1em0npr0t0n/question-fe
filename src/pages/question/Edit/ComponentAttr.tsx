@@ -10,11 +10,12 @@ import { changeComponentProps } from '../../../store/componentsReducer';
 const NoAttr: FC = () => {
   return <div style={{ textAlign: 'center' }}>未选中组件</div>;
 };
+//右侧属性面板
 const ComponentAttr: FC = () => {
   const dispatch = useDispatch();
   const { selectedComponent } = useGetComponentInfo();
   if (selectedComponent == null) return <NoAttr />;
-  const { type, props } = selectedComponent;
+  const { type, props, isLocked, isHidden } = selectedComponent;
   const componentConf = getComponentConfByType(type);
   if (componentConf == null) return <NoAttr />;
   /**
@@ -28,6 +29,6 @@ const ComponentAttr: FC = () => {
     dispatch(changeComponentProps({ fe_id, newProps: newAttr }));
   }
   const { AttrComponent } = componentConf;
-  return <AttrComponent {...props} onChange={changeProps} />;
+  return <AttrComponent {...props} onChange={changeProps} disabled={isLocked || isHidden} />;
 };
 export default ComponentAttr;

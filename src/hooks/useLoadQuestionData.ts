@@ -29,7 +29,7 @@ function useLoadQuestionData() {
       selectedId = componentList[0].fe_id;
     }
     //画布组件列表信息 存储到redux
-    dispatch(resetComponents({ componentList, selectedId: selectedId }));
+    dispatch(resetComponents({ componentList, selectedId: selectedId, copiedComponent: null }));
   }, [data, dispatch]);
   //问卷ID变化，执行ajax 加载问卷
   useEffect(() => {

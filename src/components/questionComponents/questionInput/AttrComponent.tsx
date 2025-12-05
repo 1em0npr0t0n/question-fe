@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react';
 import { QuestionInputPropsType } from './Interface';
 
 const AttrComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType) => {
-  const { title, placeholder, onChange } = props;
+  const { title, placeholder, onChange, disabled } = props;
   const [form] = Form.useForm();
   useEffect(() => {
     //及时修改选中的form 信息
@@ -21,6 +21,7 @@ const AttrComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType
       onValuesChange={handleValuesChange}
       initialValues={{ title, placeholder }}
       form={form}
+      disabled={disabled}
     >
       <Form.Item label="标题" name="title" rules={[{ required: true, message: '请输入标题' }]}>
         <Input />

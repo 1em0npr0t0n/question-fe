@@ -1,4 +1,4 @@
-import { ComponentInfoType } from './index';
+import { ComponentInfoType, ComponentStateType } from './index';
 /**
  * 计算下一个被选中的ID
  * @param fe_id 当前选中ID
@@ -25,4 +25,21 @@ export function getNextSelectedId(fe_id: string, componentList: Array<ComponentI
     }
   }
   return { removeIndex, newSelectedId };
+}
+/**
+ * 插入新组件
+ * @param state 全部组件数据
+ * @param newComponent 新组件
+ */
+export function insertNewComponent(state: ComponentStateType, newComponent: ComponentInfoType) {
+  const { selectedId, componentList } = state;
+  const index = componentList.findIndex(c => c.fe_id === selectedId);
+  if (index < 0) {
+    //未选中任何组件
+    state.componentList.push(newComponent);
+  } else {
+    //选中了组件，插入到index后面
+    state.componentList.splice(index + 1, 0, newComponent);
+  }
+  state.selectedId = newComponent.fe_id;
 }
