@@ -15,6 +15,7 @@ export type ComponentConfType = {
   title: string;
   type: string;
   Component: FC<ComponentPropsType>;
+  AttrComponent: FC<ComponentPropsType>;
   defaultProps: ComponentPropsType;
 };
 //组件列表 getComponentConfByType可在此列表中查询组件

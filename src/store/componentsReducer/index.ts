@@ -48,7 +48,21 @@ export const componentsSlice = createSlice({
       }
       state.selectedId = newComponent.fe_id;
     },
+    changeComponentProps: (
+      state: ComponentStateType,
+      action: PayloadAction<{ fe_id: string; newProps: ComponentPropsType }>,
+    ) => {
+      const { fe_id, newProps } = action.payload;
+      const curComp = state.componentList.find(c => c.fe_id === fe_id);
+      if (curComp) {
+        curComp.props = {
+          ...curComp.props,
+          ...newProps,
+        };
+      }
+    },
   },
 });
-export const { resetComponents, changeSelectedId, addComponent } = componentsSlice.actions;
+export const { resetComponents, changeSelectedId, addComponent, changeComponentProps } =
+  componentsSlice.actions;
 export default componentsSlice.reducer;

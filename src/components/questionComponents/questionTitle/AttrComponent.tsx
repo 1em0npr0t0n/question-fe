@@ -1,0 +1,47 @@
+import { FC, useEffect } from 'react';
+import { QuestionTitlePropsType } from './Interface';
+import { Checkbox, Form, Input, Select } from 'antd';
+
+const AttrComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType) => {
+  const { text, level, isCenter, onChange } = props;
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue({
+      text,
+      level,
+      isCenter,
+    });
+  }, [text, level, isCenter, form]);
+  //通过onChange 函数 更新from内的value
+  function handleValuesChange() {
+    if (onChange) {
+      onChange(form.getFieldsValue());
+    }
+  }
+  return (
+    <Form
+      layout="vertical"
+      onValuesChange={handleValuesChange}
+      initialValues={{ text, level, isCenter }}
+      form={form}
+    >
+      <Form.Item label="标题内容" name="text" rules={[{ required: true, message: '请输入标题' }]}>
+        <Input />
+      </Form.Item>
+      <Form.Item label="标题大小" name="level">
+        <Select
+          options={[
+            { value: 1, text: 1 },
+            { value: 2, text: 2 },
+            { value: 3, text: 3 },
+            { value: 4, text: 4 },
+          ]}
+        ></Select>
+      </Form.Item>
+      <Form.Item name="isCenter" valuePropName="checked">
+        <Checkbox>居中显示</Checkbox>
+      </Form.Item>
+    </Form>
+  );
+};
+export default AttrComponent;

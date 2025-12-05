@@ -1,7 +1,11 @@
+/**
+ * title组件需要的最基本参数
+ */
 export type QuestionTitlePropsType = {
   text?: string;
   level?: 1 | 2 | 3 | 4 | 5;
   isCenter?: boolean;
+  onChange?: (newAttr: QuestionTitlePropsType) => void;
 };
 export const QuestionTitleDefaultProps: QuestionTitlePropsType = {
   text: '一行标题',
