@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ComponentPropsType } from '../../components/questionComponents';
+import { getNextSelectedId } from './utils';
 /**
  * 组件数据类型
  */
@@ -7,6 +8,7 @@ export type ComponentInfoType = {
   fe_id: string;
   type: string;
   title: string;
+  isHidden?: boolean;
   props: ComponentPropsType;
 };
 
@@ -48,6 +50,7 @@ export const componentsSlice = createSlice({
       }
       state.selectedId = newComponent.fe_id;
     },
+    //改变组件属性
     changeComponentProps: (
       state: ComponentStateType,
       action: PayloadAction<{ fe_id: string; newProps: ComponentPropsType }>,
@@ -61,8 +64,45 @@ export const componentsSlice = createSlice({
         };
       }
     },
+    //删除选中组件
+    removeSelectedComponent: (state: ComponentStateType) => {
+      const { selectedId: removeId, componentList = [] } = state;
+      const { removeIndex, newSelectedId } = getNextSelectedId(removeId, componentList);
+      state.selectedId = newSelectedId;
+      //const index = componentList.findIndex(c => c.fe_id === removeId);
+      if (removeIndex >= 0) {
+        componentList.splice(removeIndex, 1);
+      }
+    },
+    //改变 显示/隐藏 组件
+    changeComponentHidden: (
+      state: ComponentStateType,
+      action: PayloadAction<{ fe_id: string; isHidden: boolean }>,
+    ) => {
+      const { componentList = [] } = state;
+      const { fe_id, isHidden } = action.payload;
+      let newSelectedId = '';
+      if (isHidden) {
+        const { newSelectedId: selectedId } = getNextSelectedId(fe_id, componentList);
+        newSelectedId = selectedId;
+      } else {
+        newSelectedId = fe_id;
+      }
+      state.selectedId = newSelectedId;
+      const currentComponent = componentList.find(c => c.fe_id === fe_id);
+
+      if (currentComponent) {
+        currentComponent.isHidden = isHidden;
+      }
+    },
   },
 });
-export const { resetComponents, changeSelectedId, addComponent, changeComponentProps } =
-  componentsSlice.actions;
+export const {
+  resetComponents,
+  changeSelectedId,
+  addComponent,
+  changeComponentProps,
+  removeSelectedComponent,
+  changeComponentHidden,
+} = componentsSlice.actions;
 export default componentsSlice.reducer;
