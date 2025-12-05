@@ -6,6 +6,7 @@ import { ComponentInfoType, ComponentStateType } from './index';
  * @returns new选中ID
  */
 export function getNextSelectedId(fe_id: string, componentList: Array<ComponentInfoType>) {
+  //过滤ishidden 为真的组件
   const visibleComponentList = componentList.filter(c => !c.isHidden);
   const removeIndex = visibleComponentList.findIndex(c => c.fe_id === fe_id);
   let newSelectedId = '';

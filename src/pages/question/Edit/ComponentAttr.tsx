@@ -4,8 +4,8 @@ import { ComponentPropsType, getComponentConfByType } from '../../../components/
 import { useDispatch } from 'react-redux';
 import { changeComponentProps } from '../../../store/componentsReducer';
 /**
- *
- * @returns 没有属性的情况下返回
+ *selectedComponent 为空时返回的属性面板
+ * @returns 未选中组件
  */
 const NoAttr: FC = () => {
   return <div style={{ textAlign: 'center' }}>未选中组件</div>;
@@ -21,7 +21,6 @@ const ComponentAttr: FC = () => {
   /**
    *
    * @param newAttr 新的组件属性
-   * @returns
    */
   function changeProps(newAttr: ComponentPropsType) {
     if (selectedComponent == null) return;

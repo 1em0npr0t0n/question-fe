@@ -106,7 +106,7 @@ export const componentsSlice = createSlice({
       const { componentList, selectedId } = state;
       const selectedComponent = componentList.find(c => c.fe_id === selectedId);
       if (selectedComponent == null) return;
-
+      //cloneDeep 浅拷贝不行
       state.copiedComponent = cloneDeep(selectedComponent); //深拷贝
     },
     //粘贴组件

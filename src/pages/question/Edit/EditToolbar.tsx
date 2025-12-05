@@ -35,9 +35,11 @@ const EditToolbar: FC = () => {
     //dispatch(changeComponentHidden({ fe_id: selectedId, isHidden: true }));
     dispatch(toggleComponentLocked({ fe_id: selectedId }));
   }
+  //复制
   function handleCopy() {
     dispatch(copySelectedComponent());
   }
+  //粘贴
   function handlePaste() {
     dispatch(pasteCopiedComponent());
   }
