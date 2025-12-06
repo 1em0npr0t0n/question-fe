@@ -8,6 +8,7 @@ import { changeSelectedId, ComponentInfoType } from '../../../store/componentsRe
 import { getComponentConfByType } from '../../../components/questionComponents';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
+import useBindCanvasKeyPreaa from '../../../hooks/useBindCanvasKeyPress';
 type PropsType = {
   loading: boolean;
 };
@@ -26,6 +27,7 @@ function genComponent(componentInfo: ComponentInfoType) {
 const EditCanvas: FC<PropsType> = ({ loading }) => {
   const { componentList, selectedId } = useGetComponentInfo();
   const dispatch = useDispatch();
+  useBindCanvasKeyPreaa();
   function handleClick(event: MouseEvent, id: string) {
     event.stopPropagation();
     dispatch(changeSelectedId(id));
@@ -37,6 +39,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
       </div>
     );
   }
+
   return (
     <div className={styles.canvas}>
       {componentList

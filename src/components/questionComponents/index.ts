@@ -4,10 +4,13 @@
 import { FC } from 'react';
 import QuestionInputConf, { QuestionInputPropsType } from './questionInput';
 import QuestionTitleConf, { QuestionTitlePropsType } from './questionTitle';
+import QuestionParagraphConf, { QuestionParagraphPropsType } from './questionParagraph';
 /**
  * 全部组件的交集&
  */
-export type ComponentPropsType = QuestionInputPropsType & QuestionTitlePropsType;
+export type ComponentPropsType = QuestionInputPropsType &
+  QuestionTitlePropsType &
+  QuestionParagraphPropsType;
 /**
  * 组件的配置  ComponentPropsType 是组件的交集& Component是组件 jsx.ele
  */
@@ -19,14 +22,18 @@ export type ComponentConfType = {
   defaultProps: ComponentPropsType;
 };
 //组件列表 getComponentConfByType可在此列表中查询组件
-const componentConfList: ComponentConfType[] = [QuestionInputConf, QuestionTitleConf];
+const componentConfList: ComponentConfType[] = [
+  QuestionInputConf,
+  QuestionTitleConf,
+  QuestionParagraphConf,
+];
 
 //组件分组
 export const componentConfGroup = [
   {
     groupId: 'groupTitle',
     groupName: '文本显示',
-    components: [QuestionTitleConf],
+    components: [QuestionTitleConf, QuestionParagraphConf],
   },
   { groupId: 'groupInput', groupName: '用户输入', components: [QuestionInputConf] },
 ];
