@@ -15,7 +15,7 @@ const Component: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType) =>
       <Paragraph strong>{title}</Paragraph>
       <Radio.Group
         value={value}
-        style={{ display: 'flex', flexDirection: isVertical ? 'row' : 'column' }}
+        style={{ display: 'flex', flexDirection: isVertical ? 'column' : 'row' }}
         onChange={onChange}
         options={options}
       />
