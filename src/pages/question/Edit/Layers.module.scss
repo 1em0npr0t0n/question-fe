@@ -3,15 +3,26 @@
   flex-direction: row;
   border-bottom: 1px solid #f0f0f0;
   padding: 5px 3px;
-  font-size: 14px;
+  align-items: center;
   .title {
-    flex: 1;
-    color: black;
+    flex: auto;
+    line-height: 2;
   }
   .selected {
     color: #009fcf;
   }
   .handler {
     width: auto;
+    text-align: end;
+    .btn {
+      opacity: 0.2;
+    }
+  }
+  &:hover {
+    .handler {
+      .btn {
+        opacity: 1;
+      }
+    }
   }
 }

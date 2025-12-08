@@ -3,8 +3,14 @@ import useGetComponentInfo from '../../../hooks/useGetComponentInfo';
 import { useDispatch } from 'react-redux';
 import styles from './Layers.module.scss';
 import classNames from 'classnames';
-import { Input, message } from 'antd';
-import { changeComponentTitle, changeSelectedId } from '../../../store/componentsReducer';
+import { Button, Input, message, Space } from 'antd';
+import {
+  changeComponentHidden,
+  changeComponentTitle,
+  changeSelectedId,
+  toggleComponentLocked,
+} from '../../../store/componentsReducer';
+import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons';
 
 const Layers: FC = () => {
   const { componentList, selectedId } = useGetComponentInfo();
@@ -32,10 +38,17 @@ const Layers: FC = () => {
     if (!selectedId) return;
     dispatch(changeComponentTitle({ fe_id: selectedId, newTitle }));
   }
+
+  function changeHidden(fe_id: string, isHidden: boolean) {
+    dispatch(changeComponentHidden({ fe_id, isHidden }));
+  }
+  function changeLocked(fe_id: string) {
+    dispatch(toggleComponentLocked({ fe_id }));
+  }
   return (
     <>
       {componentList.map(c => {
-        const { fe_id, title } = c;
+        const { fe_id, title, isHidden, isLocked } = c;
         //拼接title className
         const titleDefaultClassName = styles.title;
         const selectedClassName = styles.selected;
@@ -61,7 +74,30 @@ const Layers: FC = () => {
               )}
               {fe_id !== changingTitleId && title}
             </div>
-            <div className={styles.handler}>按钮</div>
+            <div className={styles.handler}>
+              <Space>
+                <Button
+                  size="small"
+                  shape="circle"
+                  className={!isHidden ? styles.btn : ''}
+                  icon={<EyeInvisibleOutlined />}
+                  type={isHidden ? 'primary' : 'text'}
+                  onClick={() => {
+                    changeHidden(fe_id, !isHidden);
+                  }}
+                ></Button>
+                <Button
+                  size="small"
+                  shape="circle"
+                  className={!isLocked ? styles.btn : ''}
+                  icon={<LockOutlined />}
+                  type={isLocked ? 'primary' : 'text'}
+                  onClick={() => {
+                    changeLocked(fe_id);
+                  }}
+                ></Button>
+              </Space>
+            </div>
           </div>
         );
       })}
