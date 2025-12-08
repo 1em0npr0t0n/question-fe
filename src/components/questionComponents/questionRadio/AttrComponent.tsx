@@ -1,7 +1,8 @@
 import { FC, useEffect } from 'react';
-import { QuestionRadioPropsType } from './interface';
+import { QuestionRadioPropsType, OptionsType } from './interface';
 import { Button, Checkbox, Form, Input, Select, Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { nanoid } from '@reduxjs/toolkit';
 
 const AttrComponent: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType) => {
   const { title, isVertical, value, options = [], onChange, disabled } = props;
@@ -11,6 +12,17 @@ const AttrComponent: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType
   }, [title, isVertical, value, options, form]);
   function handleValuesChange() {
     if (onChange) {
+      const newProps = form.getFieldsValue() as QuestionRadioPropsType;
+      const { options = [] } = newProps;
+      //补全单选选项的值
+      for (const p of options) {
+        if (p.value) {
+          continue;
+        } else {
+          p.value = nanoid(5);
+        }
+      }
+      onChange(newProps);
     }
   }
   return (
@@ -24,9 +36,6 @@ const AttrComponent: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType
       <Form.Item label="标题" name="title" rules={[{ required: true, message: '请输入标题' }]}>
         <Input />
       </Form.Item>
-      <Form.Item label="默认选中" name="value">
-        <Select value={value} options={options}></Select>
-      </Form.Item>
       <Form.Item label="选项">
         <Form.List name="options">
           {(fields, { add, remove }) => {
@@ -37,7 +46,23 @@ const AttrComponent: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType
                     <Space key={key} align="baseline">
                       <Form.Item
                         name={[name, 'label']}
-                        rules={[{ required: true, message: '请输入选项' }]}
+                        rules={[
+                          { required: true, message: '请输入选项' },
+                          {
+                            validator: (_, text) => {
+                              const { options = [] } = form.getFieldsValue();
+                              let num = 0;
+                              options.forEach((element: OptionsType) => {
+                                if (element.label === text) num++;
+                              });
+                              if (num === 1) {
+                                return Promise.resolve();
+                              } else {
+                                return Promise.reject(new Error('与其他选项重复'));
+                              }
+                            },
+                          },
+                        ]}
                       >
                         <Input placeholder="请输入文字" />
                       </Form.Item>
@@ -67,6 +92,9 @@ const AttrComponent: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType
             );
           }}
         </Form.List>
+      </Form.Item>
+      <Form.Item label="默认选中" name="value">
+        <Select value={value} options={options}></Select>
       </Form.Item>
       <Form.Item name="isVertical" valuePropName="checked">
         <Checkbox> 竖向排列</Checkbox>

@@ -8,6 +8,7 @@ import QuestionInfoConf, { QuestionInfoPropsType } from './questionInfo';
 import QuestionParagraphConf, { QuestionParagraphPropsType } from './questionParagraph';
 import QuestionTextareaConf, { QuestionTextareaPropsType } from './questionTextarea';
 import QuestionRadioConf, { QuestionRadioPropsType } from './questionRadio';
+import QuestionCheckboxConf, { QuestionCheckboxPropsType } from './questionCheckbox';
 /**
  * 全部组件的交集&
  */
@@ -16,7 +17,8 @@ export type ComponentPropsType = QuestionInputPropsType &
   QuestionParagraphPropsType &
   QuestionInfoPropsType &
   QuestionTextareaPropsType &
-  QuestionRadioPropsType;
+  QuestionRadioPropsType &
+  QuestionCheckboxPropsType;
 /**
  * 组件的配置  ComponentPropsType 是组件的交集& Component是组件 jsx.ele
  */
@@ -35,6 +37,7 @@ const componentConfList: ComponentConfType[] = [
   QuestionInfoConf,
   QuestionTextareaConf,
   QuestionRadioConf,
+  QuestionCheckboxConf,
 ];
 
 //组件分组
@@ -49,7 +52,11 @@ export const componentConfGroup = [
     groupName: '用户输入',
     components: [QuestionInputConf, QuestionTextareaConf],
   },
-  { groupId: 'groupSelect', groupName: '用户选择', components: [QuestionRadioConf] },
+  {
+    groupId: 'groupSelect',
+    groupName: '用户选择',
+    components: [QuestionRadioConf, QuestionCheckboxConf],
+  },
 ];
 
 /**

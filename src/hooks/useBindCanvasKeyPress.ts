@@ -23,25 +23,25 @@ function useBindCanvasKeyPreaa() {
   const dispatch = useDispatch();
   //快捷键删除组件
   useKeyPress(['backspace', 'delete'], () => {
-    if (!isActiveElementValid) return;
+    if (!isActiveElementValid()) return;
     dispatch(removeSelectedComponent());
   });
   //快捷键复制
   useKeyPress(['ctrl.c', 'meta.c'], () => {
-    if (!isActiveElementValid) return;
+    if (!isActiveElementValid()) return;
     dispatch(copySelectedComponent());
   });
   //快捷键粘贴
   useKeyPress(['ctrl.v', 'meta.v'], () => {
-    if (!isActiveElementValid) return;
+    if (!isActiveElementValid()) return;
     dispatch(pasteCopiedComponent());
   });
   useKeyPress(['uparrow'], () => {
-    if (!isActiveElementValid) return;
+    if (!isActiveElementValid()) return;
     dispatch(selectPrevComponent());
   });
   useKeyPress(['downarrow'], () => {
-    if (!isActiveElementValid) return;
+    if (!isActiveElementValid()) return;
     dispatch(selectNextComponent());
   });
 }
