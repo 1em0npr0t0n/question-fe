@@ -117,6 +117,7 @@ export const componentsSlice = createSlice({
       copiedComponent.fe_id = nanoid();
       insertNewComponent(state, copiedComponent);
     },
+    //选中上一个
     selectPrevComponent: (state: ComponentStateType) => {
       const { selectedId, componentList } = state;
       const selectedIndex = componentList.findIndex(c => c.fe_id === selectedId);
@@ -126,6 +127,7 @@ export const componentsSlice = createSlice({
       }
       state.selectedId = componentList[selectedIndex - 1].fe_id;
     },
+    //选中下一个
     selectNextComponent: (state: ComponentStateType) => {
       const { selectedId, componentList } = state;
       const selectedIndex = componentList.findIndex(c => c.fe_id === selectedId);
@@ -137,6 +139,20 @@ export const componentsSlice = createSlice({
         return;
       }
       state.selectedId = componentList[selectedIndex + 1].fe_id;
+    },
+    //修改组件title
+    changeComponentTitle: (
+      state: ComponentStateType,
+      action: PayloadAction<{ fe_id: string; newTitle: string }>,
+    ) => {
+      const { newTitle, fe_id } = action.payload;
+      const { componentList } = state;
+      for (const c of componentList) {
+        if (c.fe_id === fe_id) {
+          c.title = newTitle;
+          break;
+        }
+      }
     },
   },
 });
@@ -152,5 +168,6 @@ export const {
   pasteCopiedComponent,
   selectPrevComponent,
   selectNextComponent,
+  changeComponentTitle,
 } = componentsSlice.actions;
 export default componentsSlice.reducer;
