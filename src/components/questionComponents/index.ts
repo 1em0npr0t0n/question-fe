@@ -6,13 +6,17 @@ import QuestionInputConf, { QuestionInputPropsType } from './questionInput';
 import QuestionTitleConf, { QuestionTitlePropsType } from './questionTitle';
 import QuestionInfoConf, { QuestionInfoPropsType } from './questionInfo';
 import QuestionParagraphConf, { QuestionParagraphPropsType } from './questionParagraph';
+import QuestionTextareaConf, { QuestionTextareaPropsType } from './questionTextarea';
+import QuestionRadioConf, { QuestionRadioPropsType } from './questionRadio';
 /**
  * 全部组件的交集&
  */
 export type ComponentPropsType = QuestionInputPropsType &
   QuestionTitlePropsType &
   QuestionParagraphPropsType &
-  QuestionInfoPropsType;
+  QuestionInfoPropsType &
+  QuestionTextareaPropsType &
+  QuestionRadioPropsType;
 /**
  * 组件的配置  ComponentPropsType 是组件的交集& Component是组件 jsx.ele
  */
@@ -29,6 +33,8 @@ const componentConfList: ComponentConfType[] = [
   QuestionTitleConf,
   QuestionParagraphConf,
   QuestionInfoConf,
+  QuestionTextareaConf,
+  QuestionRadioConf,
 ];
 
 //组件分组
@@ -38,7 +44,12 @@ export const componentConfGroup = [
     groupName: '文本显示',
     components: [QuestionInfoConf, QuestionTitleConf, QuestionParagraphConf],
   },
-  { groupId: 'groupInput', groupName: '用户输入', components: [QuestionInputConf] },
+  {
+    groupId: 'groupInput',
+    groupName: '用户输入',
+    components: [QuestionInputConf, QuestionTextareaConf],
+  },
+  { groupId: 'groupSelect', groupName: '用户选择', components: [QuestionRadioConf] },
 ];
 
 /**
