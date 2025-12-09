@@ -13,7 +13,15 @@ import { useDispatch } from 'react-redux';
  */
 function isActiveElementValid() {
   const activeElem = document.activeElement;
-  if (activeElem === document.body) {
+  // dnd-kit 返回不是document.body 所以失效
+  // if (activeElem === document.body) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+  if (activeElem === document.body) return true;
+  //使用 matches 选择器
+  if (activeElem?.matches('div[role="button"]')) {
     return true;
   } else {
     return false;

@@ -2,8 +2,10 @@ import {
   BlockOutlined,
   CopyOutlined,
   DeleteOutlined,
+  DownOutlined,
   EyeInvisibleOutlined,
   LockOutlined,
+  UpOutlined,
 } from '@ant-design/icons';
 import { Button, Space, Tooltip } from 'antd';
 import { FC } from 'react';
@@ -15,11 +17,16 @@ import {
   toggleComponentLocked,
   copySelectedComponent,
   pasteCopiedComponent,
+  moveComponentSort,
 } from '../../../store/componentsReducer';
 
 const EditToolbar: FC = () => {
-  const { selectedId, selectedComponent, copiedComponent } = useGetComponentInfo();
+  const { selectedId, selectedComponent, copiedComponent, componentList } = useGetComponentInfo();
   const isLocked = selectedComponent?.isLocked ?? false;
+  const length = componentList.length;
+  const selectedIndex = componentList.findIndex(c => c.fe_id === selectedId);
+  const isFirst = selectedIndex <= 0;
+  const isLast = selectedIndex + 1 >= length;
 
   const dispatch = useDispatch();
   //删除组件
@@ -42,6 +49,16 @@ const EditToolbar: FC = () => {
   //粘贴
   function handlePaste() {
     dispatch(pasteCopiedComponent());
+  }
+  function handleUpMove() {
+    //const index = componentList.findIndex(c => c.fe_id === selectedId);
+    if (isFirst) return;
+    dispatch(moveComponentSort({ oldIndex: selectedIndex, newIndex: selectedIndex - 1 }));
+  }
+  function handleDownMove() {
+    //const index = componentList.findIndex(c => c.fe_id === selectedId);
+    if (isLast) return;
+    dispatch(moveComponentSort({ oldIndex: selectedIndex, newIndex: selectedIndex + 1 }));
   }
   // TODO 上移/下移，撤销/重做
   return (
@@ -68,6 +85,12 @@ const EditToolbar: FC = () => {
           onClick={handlePaste}
           disabled={copiedComponent == null}
         ></Button>
+      </Tooltip>
+      <Tooltip title="上移">
+        <Button icon={<UpOutlined />} onClick={handleUpMove} disabled={isFirst}></Button>
+      </Tooltip>
+      <Tooltip title="下移">
+        <Button icon={<DownOutlined />} onClick={handleDownMove} disabled={isLast}></Button>
       </Tooltip>
     </Space>
   );

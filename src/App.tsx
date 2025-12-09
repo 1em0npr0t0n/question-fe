@@ -4,7 +4,7 @@ import router from './router';
 import 'antd/dist/reset.css';
 // import logo from './logo.svg';
 // import List from './pages/List';
-// import './App.css';
+import './App.css';
 
 function App() {
   return <RouterProvider router={router}></RouterProvider>;
