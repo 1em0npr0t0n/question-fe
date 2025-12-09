@@ -10,7 +10,6 @@ import { changePageTitle } from '../../../store/pageInfoReducer';
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo';
 import { updateQuestionService } from '../../../services/question';
 import { useDebounceEffect, useKeyPress, useRequest } from 'ahooks';
-import { wait } from '@testing-library/user-event/dist/utils';
 const { Title } = Typography;
 //左上侧标题 修改功能
 const TitleElement: FC = () => {
