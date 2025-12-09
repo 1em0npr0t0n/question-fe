@@ -1,12 +1,55 @@
-import { FC } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import styles from './EditHeader.module.scss';
-import { Button, Space, Typography } from 'antd';
-import { LeftOutlined } from '@ant-design/icons';
+import { Button, Input, Space, Typography } from 'antd';
+import { EditOutlined, LeftOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import EditToolbar from './EditToolbar';
+import useGetPageInfo from '../../../hooks/useGetPageInfo';
+import { useDispatch } from 'react-redux';
+import { changePageTitle } from '../../../store/pageInfoReducer';
+const { Title } = Typography;
+const TitleElement: FC = () => {
+  const dispatch = useDispatch();
+  const { title } = useGetPageInfo();
+  const [editTitle, setEditTitle] = useState(false);
+  function handleValuesChange(event: ChangeEvent<HTMLInputElement>) {
+    const newTitle = event.target.value.trim();
+    if (newTitle) {
+      dispatch(changePageTitle({ title: newTitle }));
+    }
+  }
+
+  if (editTitle) {
+    return (
+      <Input
+        value={title}
+        onChange={handleValuesChange}
+        onBlur={() => {
+          setEditTitle(false);
+        }}
+        onPressEnter={() => {
+          setEditTitle(false);
+        }}
+      />
+    );
+  }
+  return (
+    <Space>
+      <Title level={1}>{title}</Title>
+      <Button
+        icon={<EditOutlined />}
+        type="text"
+        onClick={() => {
+          setEditTitle(true);
+        }}
+      ></Button>
+    </Space>
+  );
+};
+//编辑页面上部
 const EditHeader: FC = () => {
   const nav = useNavigate();
-  const { Title } = Typography;
+
   return (
     <header className={styles['header-wrapper']}>
       <div className={styles.header}>
@@ -21,7 +64,8 @@ const EditHeader: FC = () => {
             >
               返回
             </Button>
-            <Title level={1}>问卷标题</Title>
+
+            <TitleElement />
           </Space>
         </div>
         <div className={styles.middle}>
