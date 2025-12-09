@@ -7,6 +7,7 @@ import { useRequest } from 'ahooks';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { resetComponents } from '../store/componentsReducer';
+import { resetPageInfo } from '../store/pageInfoReducer';
 function useLoadQuestionData() {
   const { id = '' } = useParams();
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function useLoadQuestionData() {
   useEffect(() => {
     if (!data) return;
     // const { title = '', componentList = [] } = data;
-    const { componentList = [] } = data;
+    const { title = '', jsCode = '', cssCode = '', desc = '', componentList = [] } = data;
     //初始化当前选中组件ID 默认为空
     let selectedId = '';
     if (componentList.length > 0) {
@@ -30,6 +31,8 @@ function useLoadQuestionData() {
     }
     //画布组件列表信息 存储到redux
     dispatch(resetComponents({ componentList, selectedId: selectedId, copiedComponent: null }));
+    //把pageInfo 页面信息存储到redux store 中
+    dispatch(resetPageInfo({ title, desc, jsCode, cssCode }));
   }, [data, dispatch]);
   //问卷ID变化，执行ajax 加载问卷
   useEffect(() => {
