@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { resetComponents } from '../store/componentsReducer';
 import { resetPageInfo } from '../store/pageInfoReducer';
+import { ActionCreators } from 'redux-undo';
 function useLoadQuestionData() {
   const { id = '' } = useParams();
   const dispatch = useDispatch();
@@ -31,6 +32,8 @@ function useLoadQuestionData() {
     }
     //画布组件列表信息 存储到redux
     dispatch(resetComponents({ componentList, selectedId: selectedId, copiedComponent: null }));
+    //清除undo的历史 ActionCreators.clearHistory()
+    dispatch(ActionCreators.clearHistory());
     //把pageInfo 页面信息存储到redux store 中
     dispatch(resetPageInfo({ title, desc, jsCode, cssCode }));
   }, [data, dispatch]);

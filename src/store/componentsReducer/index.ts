@@ -155,6 +155,7 @@ export const componentsSlice = createSlice({
         }
       }
     },
+    //移动排序组件
     moveComponentSort: (
       state: ComponentStateType,
       action: PayloadAction<{ oldIndex: number; newIndex: number }>,

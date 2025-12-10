@@ -6,6 +6,7 @@ import {
   selectNextComponent,
   selectPrevComponent,
 } from '../store/componentsReducer';
+import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import { useDispatch } from 'react-redux';
 /**
  * 判断选中组件是否为body 如果为body返回真，
@@ -52,5 +53,27 @@ function useBindCanvasKeyPreaa() {
     if (!isActiveElementValid()) return;
     dispatch(selectNextComponent());
   });
+  //快捷键撤销
+  useKeyPress(
+    ['ctrl.z', 'meta.z'],
+    () => {
+      if (!isActiveElementValid()) return;
+      dispatch(UndoActionCreators.undo());
+    },
+    {
+      exactMatch: true,
+    },
+  );
+  //快捷键重做
+  useKeyPress(
+    ['ctrl.shift.z', 'meta.shift.z'],
+    () => {
+      if (!isActiveElementValid()) return;
+      dispatch(UndoActionCreators.redo());
+    },
+    {
+      exactMatch: true,
+    },
+  );
 }
 export default useBindCanvasKeyPreaa;
