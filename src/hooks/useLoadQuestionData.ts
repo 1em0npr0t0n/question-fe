@@ -23,7 +23,14 @@ function useLoadQuestionData() {
   useEffect(() => {
     if (!data) return;
     // const { title = '', componentList = [] } = data;
-    const { title = '', jsCode = '', cssCode = '', desc = '', componentList = [] } = data;
+    const {
+      title = '',
+      jsCode = '',
+      cssCode = '',
+      desc = '',
+      componentList = [],
+      isPublished = false,
+    } = data;
     //初始化当前选中组件ID 默认为空
     let selectedId = '';
     if (componentList.length > 0) {
@@ -35,7 +42,7 @@ function useLoadQuestionData() {
     //清除undo的历史 ActionCreators.clearHistory()
     dispatch(ActionCreators.clearHistory());
     //把pageInfo 页面信息存储到redux store 中
-    dispatch(resetPageInfo({ title, desc, jsCode, cssCode }));
+    dispatch(resetPageInfo({ title, desc, jsCode, cssCode, isPublished }));
   }, [data, dispatch]);
   //问卷ID变化，执行ajax 加载问卷
   useEffect(() => {

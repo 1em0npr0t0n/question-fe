@@ -4,6 +4,7 @@ export type PageInfoType = {
   desc?: string;
   jsCode?: string;
   cssCode?: string;
+  isPublished?: boolean;
 };
 const INIT_STATE: PageInfoType = {
   title: '',
