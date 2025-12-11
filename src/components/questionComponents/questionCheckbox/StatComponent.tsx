@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { QuestionCheckStatPropsType } from './interface';
 /**
  * 柱状图
@@ -30,7 +30,7 @@ const StatComponent: FC<QuestionCheckStatPropsType> = ({ stat = [] }) => {
         <XAxis type="number" />
 
         <Tooltip />
-        <Legend />
+        {/* <Legend /> */}
         <Bar
           dataKey="count"
           fill="#0ba7f0ff"
