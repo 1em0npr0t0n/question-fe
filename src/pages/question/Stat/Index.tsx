@@ -1,16 +1,20 @@
 import { Button, Result, Spin } from 'antd';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
 import useGetPageInfo from '../../../hooks/useGetPageInfo';
 import { useNavigate } from 'react-router-dom';
 import { useTitle } from 'ahooks';
 import styles from './Index.module.scss';
 import StatHeader from './StatHeader';
+import ComponentList from './ComponentList';
 // import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
 const Star: FC = () => {
   const { loading } = useLoadQuestionData();
   //console.log('key', searchParams.get('key'));
   const { title, isPublished } = useGetPageInfo();
+  //状态提升 selectedId type
+  const [selectedComponentId, setSelectedComponentId] = useState('');
+  const [selectedComponentType, setSelectedComponentType] = useState('');
   useTitle(`问卷统计 - ${title}`);
   const nav = useNavigate();
   //加载动画
@@ -37,7 +41,15 @@ const Star: FC = () => {
     } else {
       return (
         <>
-          <div className={styles.left}>left</div>
+          <div className={styles.left}>
+            <ComponentList
+              loading={loading}
+              selectedComponentId={selectedComponentId}
+              setSelectedComponentId={setSelectedComponentId}
+              selectedComponentType={selectedComponentType}
+              setSelectedComponentType={setSelectedComponentType}
+            />
+          </div>
           <div className={styles.middle}>middle</div>
           <div className={styles.right}>right</div>
         </>
