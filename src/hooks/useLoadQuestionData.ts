@@ -16,9 +16,12 @@ function useLoadQuestionData() {
     async (id: string) => {
       if (!id) throw new Error('问卷异常'); //没有ID
       const data = await getQuestionService(id);
+
       return data;
     },
-    { manual: true },
+    {
+      manual: true,
+    },
   );
   useEffect(() => {
     if (!data) return;

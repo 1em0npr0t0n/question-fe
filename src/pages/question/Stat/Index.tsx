@@ -7,6 +7,7 @@ import { useTitle } from 'ahooks';
 import styles from './Index.module.scss';
 import StatHeader from './StatHeader';
 import ComponentList from './ComponentList';
+import PageStat from './PageStat';
 // import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
 const Star: FC = () => {
   const { loading } = useLoadQuestionData();
@@ -50,7 +51,14 @@ const Star: FC = () => {
               setSelectedComponentType={setSelectedComponentType}
             />
           </div>
-          <div className={styles.middle}>middle</div>
+          <div className={styles.middle}>
+            <PageStat
+              selectedComponentId={selectedComponentId}
+              setSelectedComponentId={setSelectedComponentId}
+              selectedComponentType={selectedComponentType}
+              setSelectedComponentType={setSelectedComponentType}
+            />
+          </div>
           <div className={styles.right}>right</div>
         </>
       );
