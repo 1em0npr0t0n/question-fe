@@ -2,8 +2,9 @@ import { useRequest } from 'ahooks';
 import { FC, useState } from 'react';
 import { getQuestionStatListService } from '../../../services/stat';
 import { useParams } from 'react-router-dom';
-import { Spin, Typography } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Typography } from 'antd';
+
+import LoadAnim from '../../../components/LoadAnim';
 type PropsType = {
   selectedComponentId: string;
   setSelectedComponentId: (id: string) => void;
@@ -32,11 +33,7 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
   return (
     <div>
       <Title level={3}>答卷总数{!loading && total}</Title>
-      {loading && (
-        <div style={{ textAlign: 'center', marginTop: '50px' }}>
-          <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
-        </div>
-      )}
+      {loading && <LoadAnim />}
     </div>
   );
 };

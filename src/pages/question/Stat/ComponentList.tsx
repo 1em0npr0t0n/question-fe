@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { ComponentInfoType } from '../../../store/componentsReducer';
 import { getComponentConfByType } from '../../../components/questionComponents';
-import { Spin } from 'antd';
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo';
 import styles from './ComponentList.module.scss';
 import classNames from 'classnames';
+import LoadAnim from '../../../components/LoadAnim';
 type PropsType = {
   loading: boolean;
   selectedComponentId: string;
@@ -29,7 +29,7 @@ const ComponentList: FC<PropsType> = (props: PropsType) => {
     return <Component {...props} />;
   }
   if (loading) {
-    return <Spin></Spin>;
+    return <LoadAnim />;
   }
 
   return (

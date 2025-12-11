@@ -1,4 +1,4 @@
-import { Button, Result, Spin } from 'antd';
+import { Button, Result } from 'antd';
 import React, { FC, useState } from 'react';
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
 import useGetPageInfo from '../../../hooks/useGetPageInfo';
@@ -8,6 +8,7 @@ import styles from './Index.module.scss';
 import StatHeader from './StatHeader';
 import ComponentList from './ComponentList';
 import PageStat from './PageStat';
+import LoadAnim from '../../../components/LoadAnim';
 // import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
 const Star: FC = () => {
   const { loading } = useLoadQuestionData();
@@ -18,12 +19,6 @@ const Star: FC = () => {
   const [selectedComponentType, setSelectedComponentType] = useState('');
   useTitle(`问卷统计 - ${title}`);
   const nav = useNavigate();
-  //加载动画
-  const loadingElement = (
-    <div style={{ textAlign: 'center', margin: '100px' }}>
-      <Spin />
-    </div>
-  );
   //内容判断
   function genContentElement() {
     if (typeof isPublished === 'boolean' && !isPublished) {
@@ -70,7 +65,7 @@ const Star: FC = () => {
       <StatHeader />
 
       <div className={styles['content-wrapper']}>
-        {loading && loadingElement}
+        {loading && <LoadAnim />}
         <div className={styles.content}>{!loading && genContentElement()}</div>
       </div>
     </div>
