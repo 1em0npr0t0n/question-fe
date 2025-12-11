@@ -1,7 +1,7 @@
 import AttrComponent from './AttrComponent';
 import Component from './Component';
 import { QuestionRadioDefaultProps } from './interface';
-
+import StatComponent from './StatComponent';
 /**
  * @description radio单选组件
  */
@@ -13,5 +13,6 @@ const QuestionRadioConf = {
   Component,
   AttrComponent,
   defaultProps: QuestionRadioDefaultProps,
+  StatComponent,
 };
 export default QuestionRadioConf;

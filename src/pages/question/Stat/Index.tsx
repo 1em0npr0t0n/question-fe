@@ -2,13 +2,14 @@ import { Button, Result } from 'antd';
 import React, { FC, useState } from 'react';
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
 import useGetPageInfo from '../../../hooks/useGetPageInfo';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTitle } from 'ahooks';
 import styles from './Index.module.scss';
 import StatHeader from './StatHeader';
 import ComponentList from './ComponentList';
 import PageStat from './PageStat';
 import LoadAnim from '../../../components/LoadAnim';
+import ChartStat from './ChartStat';
 // import useLoadQuestionData from '../../../hooks/useLoadQuestionData';
 const Star: FC = () => {
   const { loading } = useLoadQuestionData();
@@ -17,6 +18,7 @@ const Star: FC = () => {
   //状态提升 selectedId type
   const [selectedComponentId, setSelectedComponentId] = useState('');
   const [selectedComponentType, setSelectedComponentType] = useState('');
+  const { id = '' } = useParams();
   useTitle(`问卷统计 - ${title}`);
   const nav = useNavigate();
   //内容判断
@@ -54,7 +56,13 @@ const Star: FC = () => {
               setSelectedComponentType={setSelectedComponentType}
             />
           </div>
-          <div className={styles.right}>right</div>
+          <div className={styles.right}>
+            <ChartStat
+              questionId={id}
+              selectedComponentId={selectedComponentId}
+              selectedComponentType={selectedComponentType}
+            />
+          </div>
         </>
       );
     }

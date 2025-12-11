@@ -117,7 +117,7 @@ const PublishButton: FC = () => {
       disabled={loading}
       icon={loading ? <LoadingOutlined /> : null}
     >
-      fds
+      发布问卷
     </Button>
   );
 };

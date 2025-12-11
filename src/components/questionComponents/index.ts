@@ -7,8 +7,14 @@ import QuestionTitleConf, { QuestionTitlePropsType } from './questionTitle';
 import QuestionInfoConf, { QuestionInfoPropsType } from './questionInfo';
 import QuestionParagraphConf, { QuestionParagraphPropsType } from './questionParagraph';
 import QuestionTextareaConf, { QuestionTextareaPropsType } from './questionTextarea';
-import QuestionRadioConf, { QuestionRadioPropsType } from './questionRadio';
-import QuestionCheckboxConf, { QuestionCheckboxPropsType } from './questionCheckbox';
+import QuestionRadioConf, {
+  QuestionRadioPropsType,
+  QuestionRadioStatPropsType,
+} from './questionRadio';
+import QuestionCheckboxConf, {
+  QuestionCheckboxPropsType,
+  QuestionCheckStatPropsType,
+} from './questionCheckbox';
 /**
  * 全部组件的交集&
  */
@@ -19,6 +25,7 @@ export type ComponentPropsType = QuestionInputPropsType &
   QuestionTextareaPropsType &
   QuestionRadioPropsType &
   QuestionCheckboxPropsType;
+type QuestionStatPropsType = QuestionRadioStatPropsType & QuestionCheckStatPropsType;
 /**
  * 组件的配置  ComponentPropsType 是组件的交集& Component是组件 jsx.ele
  */
@@ -28,6 +35,7 @@ export type ComponentConfType = {
   Component: FC<ComponentPropsType>;
   AttrComponent: FC<ComponentPropsType>;
   defaultProps: ComponentPropsType;
+  StatComponent?: FC<QuestionStatPropsType>;
 };
 //组件列表 getComponentConfByType可在此列表中查询组件
 const componentConfList: ComponentConfType[] = [

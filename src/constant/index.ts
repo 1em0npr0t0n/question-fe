@@ -6,3 +6,5 @@ export const LIST_PAGE_SIZE_PARAM_KEY = 'pageSize';
 export const LIST_PAGE_SIZE_DEFAULT = 15;
 //统计页 默认pagesize
 export const STAT_PAGE_SIZE_DEFAULT = 10;
+//统计页面可以生成图表的组件type
+export const STATISTICS_GEN_CHART_LIST = ['questionRadio', 'questionCheckbox'];
