@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from '../layout/MainLayout';
 import Home from '../pages/Home';
@@ -10,15 +10,16 @@ import Star from '../pages/manage/Star';
 import Trash from '../pages/manage/Trash';
 import ManageLayout from '../layout/ManageLayout';
 import QuestionLayout from '../layout/QuestionLayout';
-import Edit from '../pages/question/Edit/Index';
-import Stat from '../pages/question/Stat/Index';
+//import Edit from '../pages/question/Edit/Index';
+//import Stat from '../pages/question/Stat/Index';
 export const HOME_PATHNAME = '/';
 export const LOGIN_PATHNAME = 'login';
 export const REGISTER_PATHNAME = 'register';
 export const MANGE_LIST_PATHNAME = 'manage/list';
 const LOGIN_PATHNAME_PATH = HOME_PATHNAME + LOGIN_PATHNAME;
 const REGISTER_PATHNAME_PATH = HOME_PATHNAME + REGISTER_PATHNAME;
-
+const Edit = lazy(() => import(/* webpackChunkName: "editPage"*/ '../pages/question/Edit/Index'));
+const Stat = lazy(() => import(/* webpackChunkName: "statPage"*/ '../pages/question/Stat/Index'));
 const router = createBrowserRouter([
   {
     path: '/',

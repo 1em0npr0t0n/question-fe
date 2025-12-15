@@ -40,7 +40,8 @@
     "lint": "eslint src --ext .js,.ts,.jsx,.tsx",
     "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx}\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "analyze": "cross-env ANALYZE=true craco build"
   },
   "eslintConfig": {
     "extends": [
@@ -65,10 +66,12 @@
     "@commitlint/config-conventional": "^20.0.0",
     "@craco/craco": "^7.1.0",
     "@types/lodash.clonedeep": "^4.5.9",
+    "cross-env": "^10.1.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "webpack-bundle-analyzer": "^5.1.0"
   }
 }
