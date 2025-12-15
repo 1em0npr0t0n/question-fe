@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { FC, useMemo, useRef } from 'react';
 import styles from './StatHeader.module.scss';
 import {
   Button,
@@ -38,7 +38,27 @@ const StatHeader: FC = () => {
       // 这里可以提示用户失败原因，如权限不足或非安全上下文
     }
   }
-  function genMiddleElement() {
+  // function genMiddleElement() {
+  //   if (!isPublished) return null;
+  //   const url = `http://localhost:8000/question/${id}`;
+  //   const QRcodeElement = (
+  //     <Space align="center" direction="vertical">
+  //       <QRCode value={url} />
+  //     </Space>
+  //   );
+  //   return (
+  //     <Space>
+  //       <Input value={url} style={{ width: '300px' }} ref={urlElemRef}></Input>
+  //       <Tooltip title="点击复制">
+  //         <Button icon={<CopyOutlined />} onClick={handleCopy}></Button>
+  //       </Tooltip>
+  //       <Popover placement="bottom" content={QRcodeElement}>
+  //         <Button icon={<QrcodeOutlined />} />
+  //       </Popover>
+  //     </Space>
+  //   );
+  // }
+  const LinkAndQRCodeElem = useMemo(() => {
     if (!isPublished) return null;
     const url = `http://localhost:8000/question/${id}`;
     const QRcodeElement = (
@@ -57,7 +77,8 @@ const StatHeader: FC = () => {
         </Popover>
       </Space>
     );
-  }
+  }, [id, isPublished]);
+  // 使用 useMemo  优化 1.依赖是否经常变化，2.缓存的元素是否穿件成本较高
   return (
     <div className={styles['header-wrapper']}>
       <div className={styles.header}>
@@ -75,7 +96,7 @@ const StatHeader: FC = () => {
             <Title>{title}</Title>
           </Space>
         </div>
-        <div className={styles.middle}>{genMiddleElement()}</div>
+        <div className={styles.middle}>{LinkAndQRCodeElem}</div>
         <div className={styles.right}>
           <Button
             type="primary"
