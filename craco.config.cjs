@@ -1,4 +1,6 @@
 const { when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } = require('@craco/craco');
+//const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+//import { when, whenDev, whenProd, whenTest, ESLINT_MODES, POSTCSS_MODES } from '@craco/craco';
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 module.exports = {
   devServer: {
