@@ -42,12 +42,16 @@
     "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx}\"",
     "prepare": "husky",
-    "analyze": "cross-env ANALYZE=true craco build"
+    "analyze": "cross-env ANALYZE=true craco build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:storybook/recommended",
+      "plugin:storybook/recommended"
     ]
   },
   "browserslist": {
@@ -66,13 +70,21 @@
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@craco/craco": "^7.1.0",
+    "@storybook/addon-docs": "^9.1.16",
+    "@storybook/addon-onboarding": "^9.1.16",
+    "@storybook/preset-create-react-app": "^9.1.16",
+    "@storybook/react-webpack5": "^9.1.16",
     "@types/lodash.clonedeep": "^4.5.9",
     "cross-env": "^10.1.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-storybook": "^9.1.16",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
+    "prop-types": "^15.8.1",
+    "storybook": "^9.1.16",
+    "webpack": "^5.103.0",
     "webpack-bundle-analyzer": "^5.1.0"
   }
 }
