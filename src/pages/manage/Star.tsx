@@ -37,7 +37,7 @@ const Star: FC = () => {
   useTitle('星标问卷');
   // const [questionList] = useState(rawQuestionList);
   const { data = {}, loading } = useLoadQuestionListData({ isStar: true });
-  const { list = [], total = 0 } = data;
+  const { list = [], count = 0 } = data;
   return (
     <>
       <header className={styles.header}>
@@ -65,7 +65,7 @@ const Star: FC = () => {
           })}
       </nav>
       <footer className={styles.footer}>
-        <ListPage total={total} />
+        <ListPage total={count} />
       </footer>
     </>
   );

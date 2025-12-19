@@ -25,7 +25,7 @@ const UserInfo: FC = () => {
     <>
       <span style={{ color: 'white' }}>
         <UserOutlined />
-        {nickname}
+        {nickname || username}
       </span>
       <Button type="link" onClick={logout}>
         退出登录

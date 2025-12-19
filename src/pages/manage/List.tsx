@@ -47,10 +47,10 @@ const List: FC = () => {
     {
       manual: true,
       onSuccess(result) {
-        const { list: l = [], total = 0 } = result;
+        const { list: l = [], count = 0 } = result;
         setList(list.concat(l)); //组合list数据
         setPage(page + 1); //页码+1
-        setTotal(total);
+        setTotal(count);
       },
     },
   );
@@ -107,7 +107,12 @@ const List: FC = () => {
         </div>
       );
     if (total === 0) return <Empty description="暂无数据" />;
-    if (!haveMoreData) return <span>没有更多</span>;
+    if (!haveMoreData)
+      return (
+        <div style={{ textAlign: 'center' }}>
+          <span>没有更多</span>
+        </div>
+      );
     return <span>加载更多中...</span>;
   }, [started, loading, total, haveMoreData]);
   return (

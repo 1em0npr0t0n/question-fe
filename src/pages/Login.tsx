@@ -45,6 +45,7 @@ const Login: FC = () => {
   const { run: loginRun, loading: loginLoading } = useRequest(
     async (username: string, password: string) => {
       const data = await loginService(username, password);
+      //console.log('loginService', data);
       return data;
     },
     {

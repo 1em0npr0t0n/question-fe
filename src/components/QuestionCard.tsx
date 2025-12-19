@@ -13,6 +13,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import '@ant-design/v5-patch-for-react-19';
 import { useRequest } from 'ahooks';
 import { duplicateQuestionService, updateQuestionService } from '../services/question';
+import { formatTimestamp } from '../pages/utils/formatTime';
 type PropsType = {
   _id: string;
   title: string;
@@ -51,7 +52,7 @@ const QuestionCard: FC<PropsType> = (Props: PropsType) => {
       manual: true,
       onSuccess(result) {
         message.success('复制新问卷完成');
-        nav(`/question/edit/${result.id}`); //跳转到问卷编辑页
+        nav(`/question/edit/${result.id || result._id}`); //跳转到问卷编辑页
       },
     },
   );
@@ -93,7 +94,7 @@ const QuestionCard: FC<PropsType> = (Props: PropsType) => {
             <Space>
               {isPublished ? <Tag color="processing">已发布</Tag> : <Tag>未发布</Tag>}
               <span>答卷:{answerCount}</span>
-              <span>{createdAt}</span>
+              <span>{formatTimestamp(createdAt)}</span>
             </Space>
           </div>
         </div>

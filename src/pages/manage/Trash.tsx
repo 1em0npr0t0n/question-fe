@@ -18,7 +18,7 @@ const Trash: FC = () => {
   // 记录选中的id集
   const [selectedIds, setSelectedIds] = useState(Array<string>);
   const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true });
-  const { list = [], total = 0 } = data;
+  const { list = [], count = 0 } = data;
   // 恢复问卷 逐行恢复 带有防抖debounceWait
   const { loading: recoverLoading, run: recoverRun } = useRequest(
     async () => {
@@ -138,7 +138,7 @@ const Trash: FC = () => {
         {!loading && list.length > 0 && TableElement}
       </nav>
       <footer className={styles.footer}>
-        <ListPage total={total} />
+        <ListPage total={count} />
       </footer>
     </>
   );

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { getToken } from '../pages/utils/user-token';
 
 const instance = axios.create({
+  baseURL: 'http://localhost:3005',
   timeout: 10 * 1000,
 });
 
@@ -24,10 +25,9 @@ instance.interceptors.response.use(res => {
 
   if (errno !== 0) {
     // 错误提示
-    if (msg) {
-      message.error(msg);
-    }
-    throw new Error(msg);
+    const errorMsg = msg || '请求失败，请稍后重试';
+    message.error(errorMsg);
+    throw new Error(errorMsg);
   }
   return data as any;
 });
