@@ -8,13 +8,27 @@ const meta = {
   //     layout: 'centered', // 例如，设置布局
   //   },
   //   tags: ['autodocs'], // 可选，用于自动生成文档
-} satisfies Meta<typeof Component>;
+} satisfies Meta<typeof Component>; //验证类型
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Primary: Story = {
+export const Base: Story = {
+  args: {
+    // 这里填入你的组件需要的实际 props
+    // title: '示例标题',
+    // desc: '问卷描述',
+  },
+};
+export const Custom: Story = {
   args: {
     // 这里填入你的组件需要的实际 props
     title: '示例标题',
-    desc: '问卷描述',
+    desc: '示例desc',
+  },
+};
+export const Breakline: Story = {
+  args: {
+    // 这里填入你的组件需要的实际 props
+    title: '示例标题',
+    desc: 'Break\nline\ndesc',
   },
 };
