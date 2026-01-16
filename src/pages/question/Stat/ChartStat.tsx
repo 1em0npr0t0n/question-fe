@@ -22,6 +22,7 @@ const ChartStat: FC<PropsType> = (props: PropsType) => {
     {
       manual: true,
       onSuccess(res) {
+        if (!res.stat) return;
         setComponentStat(res.stat);
       },
     },
